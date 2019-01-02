@@ -1,0 +1,2 @@
+# HYChangeableCollection
+UICollectionView列表和表格之间切换的Demo，带动画效果。
