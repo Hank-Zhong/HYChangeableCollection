@@ -111,17 +111,19 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.myImageView.mas_bottom).offset(12);
         make.left.equalTo(self.myImageView.mas_left).offset(0);
-        make.right.offset(-12);
+//        make.right.offset(-12);
+        make.width.offset(self.frame.size.width - 24);
+        make.height.offset(38);
     }];
     
     [self.label1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleLabel.mas_bottom).offset(5);
         make.left.equalTo(self.titleLabel.mas_left).offset(0);
-        make.height.offset(19);
+        make.height.offset(20);
     }];
     
     [self.label2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.label1.mas_centerY).offset(22);
+        make.centerY.equalTo(self.label1.mas_centerY).offset(25);
         make.left.equalTo(self.label1.mas_left).offset(0);
         make.height.offset(30);
     }];
@@ -168,7 +170,9 @@
 -(void)setIsList:(BOOL)isList{
     if (_isList == isList) return;
     _isList = isList;
-    
+    //    NSLog(@"width : %lf", self.frame.size.width);
+    //接收到通知时 cell的frame并不准确，此时如果需要用到self.width，则需要自行计算
+    CGFloat width = _isList ? SCREEN_WIDTH : (SCREEN_WIDTH - 5) * 0.5;
     CGRect frame3 = self.label3.frame;
     CGRect frame4 = self.label4.frame;
     if (_isList) {
@@ -180,7 +184,8 @@
         [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.offset(12);
             make.left.equalTo(self.myImageView.mas_right).offset(12);
-            make.right.offset(-12);
+            make.width.offset(width - 120 - 36);
+//            make.right.offset(-12);
         }];
         //当布局比较复杂，约束涉及到某控件宽，而这控件宽又是不固定的时候，可以考虑使用mas_remakeConstraints重做约束
         [self.label2 mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -203,7 +208,8 @@
         [self.titleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.myImageView.mas_bottom).offset(12);
             make.left.equalTo(self.myImageView.mas_left).offset(0);
-            make.right.offset(-12);
+            make.width.offset(self.frame.size.width - 24);
+//            make.right.offset(-12);
         }];
         
         [self.label2 mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -218,14 +224,13 @@
         frame4.origin.x = x;
         frame4.origin.y = frame3.origin.y + 15;
     }
-//    NSLog(@"width : %lf", self.frame.size.width);
-    //接收到通知时 cell的frame并不准确，此时如果需要用到self.width，则需要自行计算
-    CGFloat width = _isList ? SCREEN_WIDTH : (SCREEN_WIDTH - 5) * 0.5;
+
     [self.buttonR mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.offset(width - 74);
     }];
     
     [UIView animateWithDuration:0.3f animations:^{
+        //注意：如有用masonry约束关联了 用frame设置的视图，则此处需要把frame设置的视图写在前面
         self.label3.frame = frame3;
         self.label4.frame = frame4;
         
