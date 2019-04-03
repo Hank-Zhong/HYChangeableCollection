@@ -1,5 +1,6 @@
 # HYChangeableCollection
 [![LICENSE](https://img.shields.io/badge/license-Anti%20MIT-blue.svg)](https://github.com/Hank-Zhong/HYChangeableCollection/blob/master/LICENSE)
+
 UICollectionView列表和网格之间切换的Demo，带动画效果。
 
 详细介绍请参考我的[博客](https://www.hlzhy.com/?p=57)或[简书](https://www.jianshu.com/p/443b73f72702)
